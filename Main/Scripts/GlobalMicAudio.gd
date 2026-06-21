@@ -8,13 +8,6 @@ static var has_delayed : bool = true
 static var volume = 0.0
 static var delay = 0.0
 
-
-## Returns properly encoded device names using Godot's built-in AudioServer.
-## Use this for display in UI instead of MiniAudio's get_device_names(),
-## which may return garbled text for non-ASCII device names on Windows.
-func get_display_device_names() -> PackedStringArray:
-	return AudioServer.get_input_device_list()
-
 var speech_value : float :
 	set(value):
 		if value >= Global.settings_dict.volume_limit:

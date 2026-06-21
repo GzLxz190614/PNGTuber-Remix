@@ -13,14 +13,10 @@ func _ready() -> void:
 	get_parent().close_requested.connect(close)
 	sliders_revalue(Global.settings_dict)
 	devices = GlobalMicAudio.mic_input.get_device_names()
-	var display_devices := GlobalMicAudio.get_display_device_names()
-	for idx in devices.size():
-		var display_name := devices[idx]
-		if idx < display_devices.size():
-			display_name = display_devices[idx]
-		%MicroPhoneMenu.get_popup().add_item(display_name)
-		if devices[idx] == Settings.theme_settings.microphone:
-			%MicroPhoneMenu.select(idx)
+	for i in devices:
+		%MicroPhoneMenu.get_popup().add_item(i)
+		if i == Settings.theme_settings.microphone:
+			%MicroPhoneMenu.select(devices.find(i))
 	%SelectedScreen.add_item("All Screens")
 	for i in DisplayServer.get_screen_count():
 		%SelectedScreen.add_item("Screen " + str(i))
@@ -171,12 +167,8 @@ func _on_reset_mic_button_pressed():
 func reset_mic_list():
 	%MicroPhoneMenu.get_popup().clear()
 	devices = GlobalMicAudio.mic_input.get_device_names()
-	var display_devices := GlobalMicAudio.get_display_device_names()
-	for idx in devices.size():
-		var display_name := devices[idx]
-		if idx < display_devices.size():
-			display_name = display_devices[idx]
-		%MicroPhoneMenu.get_popup().add_item(display_name)
+	for i in devices:
+		%MicroPhoneMenu.get_popup().add_item(i)
 	choosing_device(0)
 
 func _on_anti_al_check_toggled(toggled_on):
